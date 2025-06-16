@@ -1,0 +1,47 @@
+services:
+    db:
+      image: postgres
+      container_name: db
+      restart: always
+      volumes:
+        - pgdata:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_DB=postgres
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+      ports:
+        - "5432:5432"
+      networks:
+        - djangonetwork
+    # mqtt:
+    #   image: toke/mosquitto
+    #   network_mode: bridge
+    #   container_name: mqtt
+    #   expose:
+    #     - 1883
+    #   ports:
+    #     - 1883:1883
+    #   restart: unless-stopped
+    webdjango:
+      build: .
+      container_name: webdjango
+      command: sh -c "python manage.py migrate && python manage.py initadmin && python manage.py runserver 0.0.0.0:8000"
+      volumes:
+        - .:/code
+      ports:
+        - "8000:8000"
+      environment:
+        - POSTGRES_NAME=postgres
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+      depends_on:
+        - db
+      links:
+        - db:db
+      networks:
+        - djangonetwork
+networks:
+    djangonetwork:
+      driver: bridge
+volumes:
+  pgdata:

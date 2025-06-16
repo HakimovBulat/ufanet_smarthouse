@@ -1,0 +1,12 @@
+<!DOCTYPE html5>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1> Домофоны </h1>
+        {% for intercom in intercoms %}
+            <a href="/intercom/{{intercom.id}}"><p>{{ intercom }}</p></a>
+        {% endfor %}
+    </body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html5>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <p> {{intercom}} </p>
+        <a href="{% url 'intercom:open'%}"> <button>Открыть дверь ключом</button> </a> <br>
+        <a href="{% url 'intercom:call'%}"> <button>Звонок</button> </a> <br>
+        {% for apartment in apartments %}
+            <p> {{ apartment }} </p>
+        {% endfor %}
+
+    </body>
+</html>
