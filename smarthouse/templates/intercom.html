@@ -1,15 +1,57 @@
 <!DOCTYPE html5>
 <html>
     <head>
-
-    </head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static '2.css' %}"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.2/mqttws31.min.js" type="text/javascript"></script>
+   </head>
     <body>
-        <p> {{intercom}} </p>
-        <a href="{% url 'intercom:open'%}"> <button>Открыть дверь ключом</button> </a> <br>
-        <a href="{% url 'intercom:call'%}"> <button>Звонок</button> </a> <br>
+        <a href="{% url 'intercom:index' %}" id="back_a">&lt; Назад</a>
+        <div class="center-all">
+        <h1> {{intercom}} </h1>
+        {% if is_open %}
+            <h2 style="color: greenyellow;">ДВЕРЬ ОТКРЫТА</h2>
+        {% else %}
+            <h2 style="color: red">ДВЕРЬ ЗАКРЫТА</h2>
+        {% endif %}
+        <form action="" method="post">
+            {% csrf_token %}
+        <div class="numbers-intercom">
+            <div class="row-intercom">
+                <h3> {{ intercom_message }} </h3>
+            </div>
+            <div class="row-intercom">
+                <button type="submit" name="button" value="1" class="number-intercom">1</button>
+                <button type="submit" name="button" value="2" class="number-intercom">2</button>
+                <button type="submit" name="button" value="3" class="number-intercom">3</button>
+            </div>
+            <div class="row-intercom">
+                <button type="submit" name="button" value="4" class="number-intercom">4</button>
+                <button type="submit" name="button" value="5" class="number-intercom">5</button>
+                <button type="submit" name="button" value="6" class="number-intercom">6</button>
+            </div>
+            <div class="row-intercom">
+                <button type="submit" name="button" value="7" class="number-intercom">7</button>
+                <button type="submit" name="button" value="8" class="number-intercom">8</button>
+                <button type="submit" name="button" value="9" class="number-intercom">9</button>
+            </div>
+            <div class="row-intercom">
+                <button type="submit" name="button" value="del" id="delete-numbers-intercome">Очистить</button>
+                <button type="submit" name="button" value="0" class="number-intercom">0</button>
+                <button type="submit" name="button" value="call" class="number-intercom">Звонок</button>
+            </div>
+            <div class="row-intercom">
+                <button type="submit" class="number-intercom" name="open_button" value="ok">Открыть дверь ключом</button> <br>
+            </div>
+        </div>
+        
+        </form>
+        
+        <!-- <a href="{% url 'intercom:open'%}"> <button>Открыть дверь ключом</button> </a> <br> -->
+        <!-- <a href="{% url 'intercom:call'%}"> <button>Звонок</button> </a> <br> -->
         {% for apartment in apartments %}
             <p> {{ apartment }} </p>
         {% endfor %}
-
+        </div>
     </body>
 </html>

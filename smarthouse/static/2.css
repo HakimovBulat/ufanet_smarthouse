@@ -1,0 +1,36 @@
+.numbers-intercom {
+    width: auto;
+    height: auto;
+    border-width: 10px;
+    background-color: orange;
+}
+.center-all {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+.row-intercom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
+.number-intercom {
+    font-size: large;
+    width: 5vw;
+    height: 5rem;
+}
+
+#delete-numbers-intercome {
+    font-size: medium;
+    width: 5vw;
+    height: 5rem;
+}
+
+#back_a {
+    font-size: large;
+}
