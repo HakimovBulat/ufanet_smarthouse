@@ -1,7 +1,6 @@
 
 ARG PYTHON_VERSION=3.10.1
 FROM python:${PYTHON_VERSION}-slim as base
-# RUN apk add --update mosquitto
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV BROKER_HOST=localhost
@@ -10,7 +9,6 @@ ENV DJANGO_SUPERUSER_EMAIL=login@example.com
 ENV DJANGO_SUPERUSER_PASSWORD=Example12345
 WORKDIR /code
 COPY requirements.txt /code/
-
 RUN pip install -r requirements.txt
 COPY . /code/
 CMD python manage.py runserver 0.0.0.0:8000

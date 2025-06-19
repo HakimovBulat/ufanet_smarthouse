@@ -1,54 +1,57 @@
 services:
-    db:
-      image: postgres
-      container_name: db
-      restart: always
-      volumes:
-        - pgdata:/var/lib/postgresql/data
-      environment:
-        - POSTGRES_DB=postgres
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
-      ports:
-        - "5432:5432"
-      networks:
-        - djangonetwork
-    mqtt-broker:
-      image: toke/mosquitto
-      container_name: mosquitto
-      user: mosquitto
-      volumes:
-        - ./mosquitto/config:/mosquitto/config
-        - ./mosquitto/data:/mosquitto/data
-        - ./mosquitto/log:/mosquitto/log
-      ports:
-         - 1883:1883
-      restart: unless-stopped
-      stdin_open: true
-      tty: true
-      networks:
-        - djangonetwork
-    webdjango:
-      build: .
-      container_name: webdjango
-      command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py initadmin && python manage.py runserver 0.0.0.0:8000"
-      volumes:
-        - .:/code
-      ports:
-        - "8000:8000"
-      environment:
-        - POSTGRES_NAME=postgres
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
-      depends_on:
-        - mqtt-broker
-        - db
-      links:
-        - db:db
-      networks:
-        - djangonetwork
+  db:
+    image: postgres
+    container_name: db
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - djangonetwork
+
+  webdjango:
+    build: .
+    container_name: webdjango
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py initadmin && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - db
+    links:
+      - db:db
+    networks:
+      - djangonetwork
+
+  # mqtt-broker:
+  #   image: toke/mosquitto
+  #   container_name: mosquitto
+  #   user: mosquitto
+  #   volumes:
+  #     - ./mosquitto/config:/mosquitto/config
+  #     - ./mosquitto/data:/mosquitto/data
+  #     - ./mosquitto/log:/mosquitto/log
+  #   ports:
+  #      - 1883:1883
+  #   restart: unless-stopped
+  #   stdin_open: true
+  #   tty: true
+  #   networks:
+  #     - djangonetwork
+
 networks:
     djangonetwork:
       driver: bridge
+
 volumes:
   pgdata:

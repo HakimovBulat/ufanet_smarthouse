@@ -1,7 +1,7 @@
 <!DOCTYPE html5>
 <html>
     <head>
-        <meta http-equiv="refresh" content="3" />
+        <meta http-equiv="refresh" content="5" />
         <title>Главная страница</title>
         <style>
             #ufanet-title {
@@ -24,15 +24,13 @@
     <body>
         <header>
             <div class="left-text">
-                <h1 id="ufanet-title">Ufanet</h1> <br>
+                <h1 id="ufanet-title">Ufanet</h1>
             </div>
         </header>
         <main>
-            {{ range $topic, $messages := .topics }}
-                <a href="/topic/{{$topic}}"><button> Топик {{$topic}} </button></a> <br>
-                {{range $i, $message := $messages}}
-                    {{$i}} {{$message}} <br>
-                {{end}}
+            <h2>Топик {{.topic}}</h2>
+            {{range $i, $message := .messages}}
+                <p>{{$message}}</p>
             {{end}}
         </main>
     </body>

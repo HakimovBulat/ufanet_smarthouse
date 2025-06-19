@@ -28,12 +28,11 @@
             </div>
         </header>
         <main>
-            {{ range $topic, $messages := .topics }}
-                <a href="/topic/{{$topic}}"><button> Топик {{$topic}} </button></a> <br>
-                {{range $i, $message := $messages}}
-                    {{$i}} {{$message}} <br>
-                {{end}}
-            {{end}}
+            {{.lastCall}}
+            <form action="">
+                <button type="submit" value="yes">Открыть</button> <br>
+                <button type="submit" value="no">Отмена</button>
+            </form>
         </main>
     </body>
 </html>

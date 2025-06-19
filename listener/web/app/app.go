@@ -12,7 +12,8 @@ import (
 var db *gorm.DB
 
 func Setup() *fiber.App {
-	// pc, _, _, _ := runtime.Caller(1)
+	createClient([]string{"buttons", "open", "call"})
+
 	engine := html.New("./web/templates", ".html")
 
 	dsn := "host=localhost user=postgres password=postgres dbname=postgres port=5432 sslmode=disable"
@@ -27,5 +28,10 @@ func Setup() *fiber.App {
 	})
 
 	app.Get("/", IndexHandler)
+	app.Get("/call", GetCallHandler)
+	app.Post("/call", PostCallHandler)
+	app.Get("/topic/open", TopicOpenHandler)
+	app.Get("/topic/buttons", TopicButtonsHandler)
+	app.Get("/topic/call", TopicCallHandler)
 	return app
 }

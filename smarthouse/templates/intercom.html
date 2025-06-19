@@ -1,6 +1,8 @@
 <!DOCTYPE html5>
 <html>
     <head>
+        <meta http-equiv="refresh" content="3" />
+
         {% load static %}
         <link rel="stylesheet" href="{% static '2.css' %}"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.2/mqttws31.min.js" type="text/javascript"></script>
@@ -41,17 +43,15 @@
                 <button type="submit" name="button" value="call" class="number-intercom">Звонок</button>
             </div>
             <div class="row-intercom">
-                <button type="submit" class="number-intercom" name="open_button" value="ok">Открыть дверь ключом</button> <br>
+                <button type="submit" class="number-intercom" name="button" value="open">Открыть дверь ключом</button> <br>
             </div>
         </div>
-        
         </form>
-        
-        <!-- <a href="{% url 'intercom:open'%}"> <button>Открыть дверь ключом</button> </a> <br> -->
-        <!-- <a href="{% url 'intercom:call'%}"> <button>Звонок</button> </a> <br> -->
+
         {% for apartment in apartments %}
             <p> {{ apartment }} </p>
         {% endfor %}
+    
         </div>
     </body>
 </html>
